@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sameer Hassan &mdash; Software Engineer</title>
+<meta name="description" content="Sameer Hassan — software engineering student building full-stack mobile and web products. Creator of Hisaab / Qeemat, a Pakistan-focused personal finance app.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #0b0d10;
+    --bg-card: #14171c;
+    --bg-elev: #1b1f25;
+    --fg: #e8eaed;
+    --fg-dim: #9aa0a6;
+    --fg-muted: #6b7079;
+    --accent: #7cc4ff;
+    --accent-2: #b794f6;
+    --border: #232830;
+    --radius: 14px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-2); }
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    background: rgba(11, 13, 16, 0.7);
+    border-bottom: 1px solid var(--border);
+}
+
+nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+
+nav .logo { font-weight: 700; letter-spacing: 0.5px; }
+
+nav ul { list-style: none; display: flex; gap: 24px; font-size: 14px; }
+nav ul a { color: var(--fg-dim); }
+nav ul a:hover { color: var(--fg); }
+
+/* HERO */
+.hero {
+    padding: 100px 0 60px;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+}
+
+.hero h1 .accent {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p.lead {
+    font-size: 18px;
+    color: var(--fg-dim);
+    max-width: 640px;
+    margin-bottom: 28px;
+}
+
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #0b0d10;
+    border-color: var(--accent);
+}
+.btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); color: #0b0d10; }
+
+.btn-ghost { background: transparent; color: var(--fg); }
+.btn-ghost:hover { background: var(--bg-elev); color: var(--fg); }
+
+/* SECTIONS */
+section { padding: 60px 0; }
+
+h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.section-sub {
+    color: var(--fg-muted);
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+/* ABOUT */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+.about-grid p { color: var(--fg-dim); }
+@media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
+
+/* PROJECTS */
+.project {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+.project:hover { border-color: #2f3640; }
+
+.project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.project h3 { font-size: 20px; font-weight: 600; }
+.project .meta { color: var(--fg-muted); font-size: 13px; }
+
+.project p { color: var(--fg-dim); margin-bottom: 16px; font-size: 15px; }
+
+.tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+.tech {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--bg-elev);
+    color: var(--fg-dim);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.feature-list {
+    list-style: none;
+    margin-bottom: 14px;
+}
+.feature-list li {
+    padding-left: 18px;
+    position: relative;
+    color: var(--fg-dim);
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+.feature-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.project-links { display: flex; gap: 16px; font-size: 14px; }
+
+/* SKILLS */
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+.skill-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+.skill-card h4 { font-size: 13px; color: var(--fg-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.skill-card p { font-size: 14px; color: var(--fg); }
+
+/* CONTACT */
+.contact {
+    text-align: center;
+    padding: 80px 0 100px;
+}
+.contact h2 { margin-bottom: 16px; }
+.contact p { color: var(--fg-dim); margin-bottom: 28px; max-width: 540px; margin-left: auto; margin-right: auto; }
+.contact .cta-row { justify-content: center; }
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 30px 0;
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <div class="logo">Sameer Hassan</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="container">
+        <h1>Hi, I'm Sameer &mdash;<br>I build <span class="accent">full-stack products</span> end-to-end.</h1>
+        <p class="lead">
+            Software engineering student at Bahria University. I ship mobile, backend, and web &mdash; from architecture and database schema all the way to deployment. Currently building Hisaab, a personal-finance app for Pakistan.
+        </p>
+        <div class="cta-row">
+            <a href="#projects" class="btn btn-primary">See my work</a>
+            <a href="Sameer_Hassan_CV.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
+            <a href="https://github.com/sameer-hassan01" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</header>
+
+<section id="about">
+    <div class="container">
+        <h2>About</h2>
+        <p class="section-sub">A quick intro.</p>
+        <div class="about-grid">
+            <p>
+                I'm a third-year BSCS student focused on machine learning, data, and full-stack development. I learn fastest by shipping &mdash; so most of my time goes into building real apps from scratch and getting them in front of users.
+            </p>
+            <p>
+                Recent work: shipped the FoodBook MVP at Binary Rewind, and built <strong>Hisaab</strong> &mdash; a Pakistan-focused personal-finance app &mdash; solo across Flutter, Node, Postgres, and React. I'm available for internships and junior roles.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <div class="container">
+        <h2>Projects</h2>
+        <p class="section-sub">Things I've built recently.</p>
+
+        <div class="project">
+            <div class="project-head">
+                <div>
+                    <h3>Hisaab / Qeemat App</h3>
+                    <div class="meta">Personal finance &amp; receipt manager for Pakistan &middot; solo project</div>
+                </div>
+                <div class="meta">2026</div>
+            </div>
+            <p>
+                A free, offline-first personal finance app built for Pakistani users. Combines receipt scanning (on-device OCR), expense and income tracking, smart insights, budgets, subscriptions, grocery price comparison, and a rewards system &mdash; with a Flutter mobile app, Node/Postgres API, and React admin panel. Deployed end-to-end on free-tier infrastructure (zero monthly cost).
+            </p>
+            <div class="tech-list">
+                <span class="tech">Flutter</span>
+                <span class="tech">Riverpod</span>
+                <span class="tech">Node.js</span>
+                <span class="tech">Express</span>
+                <span class="tech">PostgreSQL</span>
+                <span class="tech">Firebase Auth</span>
+                <span class="tech">ML Kit OCR</span>
+                <span class="tech">Cloudinary</span>
+                <span class="tech">React</span>
+                <span class="tech">Tailwind</span>
+            </div>
+            <ul class="feature-list">
+                <li>Solo-designed 3 coordinated codebases: Flutter mobile, Node/Express REST API, React admin panel</li>
+                <li>On-device OCR via Google ML Kit; auto-categorization and duplicate detection</li>
+                <li>Offline-first with Hive cache + background sync queue</li>
+                <li>JWT-backed sessions, Firebase ID-token verification, Helmet + rate-limit + validator on every route</li>
+                <li>Deployed entirely on free tiers: Render, Neon, Cloudinary, Vercel, Firebase</li>
+            </ul>
+            <div class="project-links">
+                <a href="https://github.com/sameer-hassan01/hisaab" target="_blank" rel="noopener">GitHub &rarr;</a>
+            </div>
+        </div>
+
+        <div class="project">
+            <div class="project-head">
+                <div>
+                    <h3>FoodBook MVP</h3>
+                    <div class="meta">Community food review platform &middot; Binary Rewind</div>
+                </div>
+                <div class="meta">2025</div>
+            </div>
+            <p>
+                Shipped the MVP of FoodBook, a community-driven food review platform. Owned reviews, ratings, and search; collaborated with designers and PMs; supported CI/CD and beta deployment.
+            </p>
+            <div class="tech-list">
+                <span class="tech">REST APIs</span>
+                <span class="tech">Unit testing</span>
+                <span class="tech">CI/CD</span>
+            </div>
+        </div>
+
+        <div class="project">
+            <div class="project-head">
+                <div>
+                    <h3>University Coursework Projects</h3>
+                    <div class="meta">Bahria University &middot; BSCS</div>
+                </div>
+                <div class="meta">2023 — Present</div>
+            </div>
+            <p>
+                Coursework projects across Data Structures, OOP, Database Systems, and Machine Learning &mdash; including an intrusion-detection system project and ML pipelines in Python (pandas, scikit-learn).
+            </p>
+            <div class="tech-list">
+                <span class="tech">C++</span>
+                <span class="tech">Python</span>
+                <span class="tech">Qt</span>
+                <span class="tech">SQL</span>
+                <span class="tech">scikit-learn</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills">
+    <div class="container">
+        <h2>Skills</h2>
+        <p class="section-sub">Tools I reach for.</p>
+        <div class="skill-grid">
+            <div class="skill-card"><h4>Mobile</h4><p>Flutter, Dart, Riverpod</p></div>
+            <div class="skill-card"><h4>Backend</h4><p>Node.js, Express, REST</p></div>
+            <div class="skill-card"><h4>Database</h4><p>PostgreSQL, SQL</p></div>
+            <div class="skill-card"><h4>Frontend</h4><p>React, Vite, Tailwind, HTML/CSS/JS</p></div>
+            <div class="skill-card"><h4>Languages</h4><p>C++, Python, JavaScript, Dart</p></div>
+            <div class="skill-card"><h4>Cloud</h4><p>Firebase, AWS, Render, Vercel</p></div>
+            <div class="skill-card"><h4>Data / ML</h4><p>pandas, NumPy, scikit-learn</p></div>
+            <div class="skill-card"><h4>Tools</h4><p>Git, Figma, Qt, Linux</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <div class="container">
+        <h2>Let's talk.</h2>
+        <p>I'm actively looking for internships and junior engineering roles. The fastest way to reach me is email.</p>
+        <div class="cta-row">
+            <a href="mailto:sameerhassanq3@gmail.com" class="btn btn-primary">sameerhassanq3@gmail.com</a>
+            <a href="https://github.com/sameer-hassan01" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+            <a href="Sameer_Hassan_CV.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        &copy; 2026 Sameer Hassan &middot; Built with HTML/CSS, deployed on GitHub Pages
+    </div>
+</footer>
+
+</body>
+</html>
