@@ -3,244 +3,622 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sameer Hassan &mdash; Software Engineer</title>
-<meta name="description" content="Sameer Hassan — software engineering student building full-stack mobile and web products. Creator of Hisaab / Qeemat, a Pakistan-focused personal finance app.">
+<title>Sameer Hassan — Software Engineer</title>
+<meta name="description" content="Sameer Hassan — software engineer building full-stack mobile and web products. Creator of Hisaab, a Pakistan-focused personal finance app.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-    --bg: #0b0d10;
-    --bg-card: #14171c;
-    --bg-elev: #1b1f25;
-    --fg: #e8eaed;
-    --fg-dim: #9aa0a6;
-    --fg-muted: #6b7079;
-    --accent: #7cc4ff;
-    --accent-2: #b794f6;
-    --border: #232830;
-    --radius: 14px;
+    --bg: #0a0a0a;
+    --bg-card: #111111;
+    --bg-elev: #1a1a1a;
+    --fg: #f5f5f5;
+    --fg-dim: #999;
+    --fg-muted: #555;
+    --accent: #c6f73c;
+    --accent-dim: #8aa829;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.16);
 }
 
-html { scroll-behavior: smooth; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+}
 
 body {
     font-family: 'Inter', system-ui, sans-serif;
     background: var(--bg);
     color: var(--fg);
-    line-height: 1.6;
+    line-height: 1.5;
+    overflow-x: hidden;
+    cursor: none;
     -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
-a:hover { color: var(--accent-2); }
+a { color: inherit; text-decoration: none; }
 
-.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+/* Grain overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
 
+/* Custom cursor */
+.cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: difference;
+}
+.cursor.hover {
+    width: 40px;
+    height: 40px;
+    background: var(--fg);
+}
+@media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor { display: none; }
+}
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+/* NAV */
 nav {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 50;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 24px 0;
     backdrop-filter: blur(12px);
-    background: rgba(11, 13, 16, 0.7);
-    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.6);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
 }
+nav.scrolled { border-bottom-color: var(--border); }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
 
-nav .container {
+.logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px;
+    font-style: italic;
+    letter-spacing: -0.5px;
+}
+.logo span { color: var(--accent); }
+
+nav ul {
+    list-style: none;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
+    gap: 36px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--fg-dim);
 }
-
-nav .logo { font-weight: 700; letter-spacing: 0.5px; }
-
-nav ul { list-style: none; display: flex; gap: 24px; font-size: 14px; }
-nav ul a { color: var(--fg-dim); }
+nav ul a {
+    position: relative;
+    transition: color 0.3s;
+}
+nav ul a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+}
 nav ul a:hover { color: var(--fg); }
+nav ul a:hover::after { width: 100%; }
+@media (max-width: 700px) { nav ul { display: none; } }
 
 /* HERO */
 .hero {
-    padding: 100px 0 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 0 80px;
+    position: relative;
+}
+
+.hero .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.hero .tag::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
 }
 
 .hero h1 {
-    font-size: clamp(36px, 6vw, 56px);
+    font-size: clamp(48px, 9vw, 132px);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -1px;
-    margin-bottom: 16px;
+    line-height: 0.95;
+    letter-spacing: -4px;
+    margin-bottom: 32px;
 }
-
-.hero h1 .accent {
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+.hero h1 .serif {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -2px;
 }
+.hero h1 .accent { color: var(--accent); }
 
-.hero p.lead {
-    font-size: 18px;
+.hero .lead {
+    font-size: clamp(16px, 1.6vw, 20px);
     color: var(--fg-dim);
     max-width: 640px;
-    margin-bottom: 28px;
+    margin-bottom: 48px;
+    line-height: 1.5;
 }
 
-.cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
 
 .btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 8px;
+    gap: 12px;
+    padding: 16px 28px;
+    border-radius: 100px;
     font-size: 14px;
     font-weight: 500;
-    transition: all 0.2s;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
-
-.btn-primary {
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: var(--accent);
-    color: #0b0d10;
-    border-color: var(--accent);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
 }
-.btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); color: #0b0d10; }
+.btn:hover { color: #0a0a0a; border-color: var(--accent); }
+.btn:hover::before { transform: translateY(0); }
+.btn.primary { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+.btn.primary::before { background: var(--fg); }
+.btn.primary:hover { color: #0a0a0a; }
 
-.btn-ghost { background: transparent; color: var(--fg); }
-.btn-ghost:hover { background: var(--bg-elev); color: var(--fg); }
+.btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s;
+}
+.btn:hover .arrow { transform: translateX(4px); }
 
-/* SECTIONS */
-section { padding: 60px 0; }
+/* MARQUEE */
+.marquee {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    margin-top: 80px;
+}
+.marquee-track {
+    display: flex;
+    gap: 60px;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+}
+.marquee-item {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    font-style: italic;
+    color: var(--fg-muted);
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+.marquee-item:hover { color: var(--accent); }
+.marquee-item .dot { color: var(--accent); margin-left: 60px; }
 
-h2 {
-    font-size: 28px;
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* SECTION */
+section.block { padding: 140px 0; position: relative; }
+@media (max-width: 700px) { section.block { padding: 80px 0; } }
+
+.section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+}
+.section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+}
+.section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--fg-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h2.section-title {
+    font-size: clamp(40px, 6vw, 88px);
     font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
+    line-height: 1;
+    letter-spacing: -3px;
+    margin-bottom: 24px;
+}
+h2.section-title .serif {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-style: italic;
 }
 
 .section-sub {
-    color: var(--fg-muted);
-    font-size: 14px;
-    margin-bottom: 32px;
+    color: var(--fg-dim);
+    font-size: 18px;
+    max-width: 640px;
+    line-height: 1.5;
 }
 
 /* ABOUT */
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 80px;
+    align-items: start;
 }
-.about-grid p { color: var(--fg-dim); }
-@media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
-
-/* PROJECTS */
-.project {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    margin-bottom: 20px;
-    transition: border-color 0.2s, transform 0.2s;
+.about-grid p {
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--fg);
+    font-weight: 300;
 }
-.project:hover { border-color: #2f3640; }
+.about-grid p strong { font-weight: 600; color: var(--accent); }
+@media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } .about-grid p { font-size: 18px; } }
 
-.project-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
+/* STATS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 80px;
+    border-top: 1px solid var(--border);
 }
-
-.project h3 { font-size: 20px; font-weight: 600; }
-.project .meta { color: var(--fg-muted); font-size: 13px; }
-
-.project p { color: var(--fg-dim); margin-bottom: 16px; font-size: 15px; }
-
-.tech-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
+.stat {
+    padding: 40px 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
-.tech {
-    font-size: 12px;
-    padding: 3px 10px;
-    border-radius: 12px;
-    background: var(--bg-elev);
-    color: var(--fg-dim);
+.stat:last-child { border-right: none; }
+.stat .num {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(48px, 6vw, 88px);
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+.stat .num .small { font-size: 0.5em; vertical-align: super; opacity: 0.7; }
+.stat .label {
     font-family: 'JetBrains Mono', monospace;
-}
-
-.feature-list {
-    list-style: none;
-    margin-bottom: 14px;
-}
-.feature-list li {
-    padding-left: 18px;
-    position: relative;
+    font-size: 11px;
     color: var(--fg-dim);
-    font-size: 14px;
-    margin-bottom: 6px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
-.feature-list li::before {
-    content: "▸";
-    position: absolute;
-    left: 0;
+@media (max-width: 700px) { .stats { grid-template-columns: 1fr 1fr; } .stat { border-right: none; } .stat:nth-child(odd) { border-right: 1px solid var(--border); } }
+
+/* PROJECT */
+.project {
+    padding: 60px 0;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    transition: padding 0.3s;
+}
+.project:last-of-type { border-bottom: 1px solid var(--border); }
+.project:hover { padding-left: 24px; padding-right: 24px; }
+.project .pnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--fg-muted);
+    letter-spacing: 2px;
+}
+.project h3 {
+    font-size: clamp(28px, 3.5vw, 52px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 12px;
+}
+.project .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+.project p {
+    font-size: 16px;
+    color: var(--fg-dim);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+.project .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.project .tag-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    border: 1px solid var(--border-strong);
+    color: var(--fg-dim);
+}
+.project .links {
+    display: flex;
+    gap: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
     color: var(--accent);
 }
-
-.project-links { display: flex; gap: 16px; font-size: 14px; }
-
-/* SKILLS */
-.skill-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
+.project .links a {
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: color 0.2s, transform 0.3s;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
 }
-.skill-card {
+.project .links a:hover { color: var(--fg); }
+.project .links a:hover .arrow { transform: translate(2px, -2px); }
+.project .arrow { transition: transform 0.3s; display: inline-block; }
+@media (max-width: 800px) { .project { grid-template-columns: 1fr; gap: 16px; } .project:hover { padding-left: 0; padding-right: 0; } }
+
+/* SHOWCASE (phone screenshots) */
+.showcase {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+}
+.showcase-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.showcase-head h4 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 400;
+}
+.showcase-head .hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--fg-muted);
+    letter-spacing: 1.5px;
+}
+
+.phones {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 24px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+}
+.phones::-webkit-scrollbar { height: 6px; }
+.phones::-webkit-scrollbar-track { background: transparent; }
+.phones::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 100px; }
+
+.phone {
+    flex: 0 0 auto;
+    width: 240px;
+    scroll-snap-align: start;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.phone:hover { transform: translateY(-8px); }
+.phone-frame {
+    border-radius: 32px;
+    border: 1px solid var(--border-strong);
+    padding: 8px;
     background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
-.skill-card h4 { font-size: 13px; color: var(--fg-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-.skill-card p { font-size: 14px; color: var(--fg); }
+.phone-frame img {
+    width: 100%;
+    display: block;
+    border-radius: 24px;
+}
+.phone .caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--fg-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 16px;
+    text-align: center;
+}
+
+/* TECH STACK */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+}
+.tech-card {
+    background: var(--bg);
+    padding: 32px 24px;
+    transition: background 0.3s;
+}
+.tech-card:hover { background: var(--bg-card); }
+.tech-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+.tech-card .items { font-size: 16px; color: var(--fg); font-weight: 300; line-height: 1.5; }
+
+/* PROCESS */
+.process { margin-top: 60px; }
+.step {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+}
+.step:last-child { border-bottom: 1px solid var(--border); }
+.step .snum {
+    font-family: 'Instrument Serif', serif;
+    font-size: 64px;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1;
+}
+.step h4 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+.step p { color: var(--fg-dim); font-size: 15px; line-height: 1.6; }
+@media (max-width: 700px) { .step { grid-template-columns: 60px 1fr; gap: 20px; } .step .snum { font-size: 40px; } }
 
 /* CONTACT */
 .contact {
-    text-align: center;
-    padding: 80px 0 100px;
+    padding: 160px 0;
+    text-align: left;
 }
-.contact h2 { margin-bottom: 16px; }
-.contact p { color: var(--fg-dim); margin-bottom: 28px; max-width: 540px; margin-left: auto; margin-right: auto; }
-.contact .cta-row { justify-content: center; }
+.contact h2 {
+    font-size: clamp(56px, 11vw, 168px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -5px;
+    margin-bottom: 48px;
+}
+.contact h2 .serif {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent);
+}
+.contact .lines {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+}
+.contact .lines a {
+    font-size: 20px;
+    color: var(--fg);
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s, color 0.3s;
+    align-items: center;
+}
+.contact .lines a:hover { color: var(--accent); padding-left: 16px; }
+.contact .lines a .arrow { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--fg-muted); }
 
 footer {
     border-top: 1px solid var(--border);
-    padding: 30px 0;
-    text-align: center;
+    padding: 40px 0;
     color: var(--fg-muted);
-    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
+footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+
+/* SCROLL REVEAL */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
 </style>
 </head>
 <body>
 
-<nav>
+<div class="cursor"></div>
+
+<nav id="nav">
     <div class="container">
-        <div class="logo">Sameer Hassan</div>
+        <a href="#" class="logo">Sameer<span>.</span></a>
         <ul>
             <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#process">Process</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
@@ -248,147 +626,325 @@ footer {
 
 <header class="hero">
     <div class="container">
-        <h1>Hi, I'm Sameer &mdash;<br>I build <span class="accent">full-stack products</span> end-to-end.</h1>
-        <p class="lead">
-            Software engineering student at Bahria University. I ship mobile, backend, and web &mdash; from architecture and database schema all the way to deployment. Currently building Hisaab, a personal-finance app for Pakistan.
+        <div class="tag reveal">Available for internships &amp; junior roles</div>
+        <h1 class="reveal reveal-delay-1">
+            I build<br>
+            <span class="serif">full-stack</span> <span class="accent">products.</span>
+        </h1>
+        <p class="lead reveal reveal-delay-2">
+            BSCS student at Bahria University, Islamabad. I ship mobile, backend, and web end-to-end &mdash; from database schema to deployment. Currently building <strong>Hisaab</strong>, a personal-finance app for Pakistan.
         </p>
-        <div class="cta-row">
-            <a href="#projects" class="btn btn-primary">See my work</a>
-            <a href="Sameer_Hassan_CV.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
-            <a href="https://github.com/sameer-hassan01" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+        <div class="cta-row reveal reveal-delay-3">
+            <a href="#work" class="btn primary">See my work <span class="arrow">→</span></a>
+            <a href="Sameer_Hassan_CV.pdf" target="_blank" class="btn">Download CV <span class="arrow">↗</span></a>
+        </div>
+    </div>
+
+    <div class="marquee">
+        <div class="marquee-track">
+            <span class="marquee-item">Flutter <span class="dot">•</span></span>
+            <span class="marquee-item">Node.js <span class="dot">•</span></span>
+            <span class="marquee-item">PostgreSQL <span class="dot">•</span></span>
+            <span class="marquee-item">React <span class="dot">•</span></span>
+            <span class="marquee-item">Firebase <span class="dot">•</span></span>
+            <span class="marquee-item">Python <span class="dot">•</span></span>
+            <span class="marquee-item">C++ <span class="dot">•</span></span>
+            <span class="marquee-item">TypeScript <span class="dot">•</span></span>
+            <!-- duplicate for seamless loop -->
+            <span class="marquee-item">Flutter <span class="dot">•</span></span>
+            <span class="marquee-item">Node.js <span class="dot">•</span></span>
+            <span class="marquee-item">PostgreSQL <span class="dot">•</span></span>
+            <span class="marquee-item">React <span class="dot">•</span></span>
+            <span class="marquee-item">Firebase <span class="dot">•</span></span>
+            <span class="marquee-item">Python <span class="dot">•</span></span>
+            <span class="marquee-item">C++ <span class="dot">•</span></span>
+            <span class="marquee-item">TypeScript <span class="dot">•</span></span>
         </div>
     </div>
 </header>
 
-<section id="about">
+<section class="block" id="about">
     <div class="container">
-        <h2>About</h2>
-        <p class="section-sub">A quick intro.</p>
+        <div class="section-head reveal">
+            <span class="section-num">/ 01</span>
+            <span class="section-label">About</span>
+        </div>
+        <h2 class="section-title reveal">
+            A student <span class="serif">who ships.</span>
+        </h2>
         <div class="about-grid">
-            <p>
-                I'm a third-year BSCS student focused on machine learning, data, and full-stack development. I learn fastest by shipping &mdash; so most of my time goes into building real apps from scratch and getting them in front of users.
+            <p class="reveal">
+                I'm a third-year BS Computer Science student focused on <strong>full-stack development</strong> and machine learning. I learn fastest by building &mdash; so most of my time goes into shipping real apps from scratch.
             </p>
-            <p>
-                Recent work: shipped the FoodBook MVP at Binary Rewind, and built <strong>Hisaab</strong> &mdash; a Pakistan-focused personal-finance app &mdash; solo across Flutter, Node, Postgres, and React. I'm available for internships and junior roles.
+            <p class="reveal reveal-delay-1">
+                Recently I built <strong>Hisaab</strong>, a Pakistan-focused personal-finance app, solo across Flutter, Node, Postgres, and React. Previously I shipped the FoodBook MVP at Binary Rewind.
             </p>
         </div>
-    </div>
-</section>
 
-<section id="projects">
-    <div class="container">
-        <h2>Projects</h2>
-        <p class="section-sub">Things I've built recently.</p>
-
-        <div class="project">
-            <div class="project-head">
-                <div>
-                    <h3>Hisaab / Qeemat App</h3>
-                    <div class="meta">Personal finance &amp; receipt manager for Pakistan &middot; solo project</div>
-                </div>
-                <div class="meta">2026</div>
+        <div class="stats">
+            <div class="stat reveal">
+                <div class="num">3<span class="small">+</span></div>
+                <div class="label">Years coding</div>
             </div>
-            <p>
-                A free, offline-first personal finance app built for Pakistani users. Combines receipt scanning (on-device OCR), expense and income tracking, smart insights, budgets, subscriptions, grocery price comparison, and a rewards system &mdash; with a Flutter mobile app, Node/Postgres API, and React admin panel. Deployed end-to-end on free-tier infrastructure (zero monthly cost).
-            </p>
-            <div class="tech-list">
-                <span class="tech">Flutter</span>
-                <span class="tech">Riverpod</span>
-                <span class="tech">Node.js</span>
-                <span class="tech">Express</span>
-                <span class="tech">PostgreSQL</span>
-                <span class="tech">Firebase Auth</span>
-                <span class="tech">ML Kit OCR</span>
-                <span class="tech">Cloudinary</span>
-                <span class="tech">React</span>
-                <span class="tech">Tailwind</span>
+            <div class="stat reveal reveal-delay-1">
+                <div class="num">10<span class="small">+</span></div>
+                <div class="label">Projects shipped</div>
             </div>
-            <ul class="feature-list">
-                <li>Solo-designed 3 coordinated codebases: Flutter mobile, Node/Express REST API, React admin panel</li>
-                <li>On-device OCR via Google ML Kit; auto-categorization and duplicate detection</li>
-                <li>Offline-first with Hive cache + background sync queue</li>
-                <li>JWT-backed sessions, Firebase ID-token verification, Helmet + rate-limit + validator on every route</li>
-                <li>Deployed entirely on free tiers: Render, Neon, Cloudinary, Vercel, Firebase</li>
-            </ul>
-            <div class="project-links">
-                <a href="https://github.com/sameer-hassan01/hisaab" target="_blank" rel="noopener">GitHub &rarr;</a>
+            <div class="stat reveal reveal-delay-2">
+                <div class="num">3</div>
+                <div class="label">Codebases in Hisaab</div>
             </div>
-        </div>
-
-        <div class="project">
-            <div class="project-head">
-                <div>
-                    <h3>FoodBook MVP</h3>
-                    <div class="meta">Community food review platform &middot; Binary Rewind</div>
-                </div>
-                <div class="meta">2025</div>
-            </div>
-            <p>
-                Shipped the MVP of FoodBook, a community-driven food review platform. Owned reviews, ratings, and search; collaborated with designers and PMs; supported CI/CD and beta deployment.
-            </p>
-            <div class="tech-list">
-                <span class="tech">REST APIs</span>
-                <span class="tech">Unit testing</span>
-                <span class="tech">CI/CD</span>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-head">
-                <div>
-                    <h3>University Coursework Projects</h3>
-                    <div class="meta">Bahria University &middot; BSCS</div>
-                </div>
-                <div class="meta">2023 — Present</div>
-            </div>
-            <p>
-                Coursework projects across Data Structures, OOP, Database Systems, and Machine Learning &mdash; including an intrusion-detection system project and ML pipelines in Python (pandas, scikit-learn).
-            </p>
-            <div class="tech-list">
-                <span class="tech">C++</span>
-                <span class="tech">Python</span>
-                <span class="tech">Qt</span>
-                <span class="tech">SQL</span>
-                <span class="tech">scikit-learn</span>
+            <div class="stat reveal reveal-delay-3">
+                <div class="num">0<span class="small">PKR</span></div>
+                <div class="label">Hisaab monthly cost</div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="skills">
+<section class="block" id="work">
     <div class="container">
-        <h2>Skills</h2>
-        <p class="section-sub">Tools I reach for.</p>
-        <div class="skill-grid">
-            <div class="skill-card"><h4>Mobile</h4><p>Flutter, Dart, Riverpod</p></div>
-            <div class="skill-card"><h4>Backend</h4><p>Node.js, Express, REST</p></div>
-            <div class="skill-card"><h4>Database</h4><p>PostgreSQL, SQL</p></div>
-            <div class="skill-card"><h4>Frontend</h4><p>React, Vite, Tailwind, HTML/CSS/JS</p></div>
-            <div class="skill-card"><h4>Languages</h4><p>C++, Python, JavaScript, Dart</p></div>
-            <div class="skill-card"><h4>Cloud</h4><p>Firebase, AWS, Render, Vercel</p></div>
-            <div class="skill-card"><h4>Data / ML</h4><p>pandas, NumPy, scikit-learn</p></div>
-            <div class="skill-card"><h4>Tools</h4><p>Git, Figma, Qt, Linux</p></div>
+        <div class="section-head reveal">
+            <span class="section-num">/ 02</span>
+            <span class="section-label">Selected Work</span>
+        </div>
+        <h2 class="section-title reveal">
+            Things <span class="serif">I've built.</span>
+        </h2>
+
+        <div class="project reveal">
+            <div class="pnum">01 —</div>
+            <div>
+                <h3>Hisaab <em style="font-family:'Instrument Serif',serif;font-weight:400;color:var(--accent)">/ Qeemat</em></h3>
+                <div class="meta">Solo · 2026 · Personal Finance</div>
+                <p>
+                    A free, offline-first personal finance and receipt manager built for Pakistani users. Combines on-device OCR receipt scanning, expense and income tracking, smart insights, budgets, subscriptions, grocery price comparison, and a rewards system &mdash; across a Flutter mobile app, Node/Postgres API, and React admin panel. Deployed entirely on free-tier infrastructure.
+                </p>
+                <div class="tags">
+                    <span class="tag-chip">Flutter</span>
+                    <span class="tag-chip">Node</span>
+                    <span class="tag-chip">Postgres</span>
+                    <span class="tag-chip">React</span>
+                    <span class="tag-chip">Firebase</span>
+                    <span class="tag-chip">ML Kit OCR</span>
+                    <span class="tag-chip">Cloudinary</span>
+                </div>
+            </div>
+            <div>
+                <p style="font-size:14px;color:var(--fg);line-height:1.7;margin-bottom:24px">
+                    <strong style="color:var(--accent)">What I built:</strong> 3 coordinated codebases solo. On-device OCR via Google ML Kit. JWT-backed auth with Firebase ID-token verification. Helmet + rate-limit + validator on every route. Hive offline cache with background sync. Zero monthly cost &mdash; deployed on Render, Neon, Cloudinary, Vercel, and Firebase free tiers.
+                </p>
+                <div class="links">
+                    <a href="https://github.com/sameer-hassan01/QEEMAT" target="_blank" rel="noopener">GitHub <span class="arrow">↗</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="showcase reveal">
+            <div class="showcase-head">
+                <h4>Inside the app</h4>
+                <span class="hint">Scroll →</span>
+            </div>
+            <div class="phones">
+                <div class="phone"><div class="phone-frame"><img src="qeemat-shots/01-dashboard.png" alt="Hisaab dashboard"></div><div class="caption">Dashboard</div></div>
+                <div class="phone"><div class="phone-frame"><img src="qeemat-shots/02-add-income.png" alt="Add income flow"></div><div class="caption">Add income</div></div>
+                <div class="phone"><div class="phone-frame"><img src="qeemat-shots/03-receipt-scan-ocr.png" alt="Receipt scanner with OCR"></div><div class="caption">OCR receipt scan</div></div>
+                <div class="phone"><div class="phone-frame"><img src="qeemat-shots/04-detected-items.png" alt="Detected items from OCR"></div><div class="caption">Parsed items</div></div>
+                <div class="phone"><div class="phone-frame"><img src="qeemat-shots/05-save-receipt.png" alt="Save receipt confirmation"></div><div class="caption">Save</div></div>
+            </div>
+        </div>
+
+        <div class="project reveal" style="margin-top:60px">
+            <div class="pnum">02 —</div>
+            <div>
+                <h3>FoodBook <em style="font-family:'Instrument Serif',serif;font-weight:400;color:var(--accent)">MVP</em></h3>
+                <div class="meta">Binary Rewind · 2025</div>
+                <p>
+                    Shipped the MVP of FoodBook, a community-driven food review platform. Owned the implementation of reviews, ratings, and search; built RESTful APIs and front-end components; wrote unit tests; supported CI/CD and beta deployment.
+                </p>
+                <div class="tags">
+                    <span class="tag-chip">REST APIs</span>
+                    <span class="tag-chip">Unit Tests</span>
+                    <span class="tag-chip">CI/CD</span>
+                </div>
+            </div>
+            <div>
+                <p style="font-size:14px;color:var(--fg);line-height:1.7">
+                    <strong style="color:var(--accent)">Outcome:</strong> Launched the beta on schedule. Collaborated directly with designers and product leads to translate requirements into specs. Fixed critical beta bugs and supported deployment.
+                </p>
+            </div>
+        </div>
+
+        <div class="project reveal">
+            <div class="pnum">03 —</div>
+            <div>
+                <h3>University <em style="font-family:'Instrument Serif',serif;font-weight:400;color:var(--accent)">Coursework</em></h3>
+                <div class="meta">Bahria University · 2023 — present</div>
+                <p>
+                    Coursework projects across Data Structures, OOP, Database Systems, and Machine Learning &mdash; including an intrusion-detection system project and ML pipelines in Python with pandas and scikit-learn.
+                </p>
+                <div class="tags">
+                    <span class="tag-chip">C++</span>
+                    <span class="tag-chip">Python</span>
+                    <span class="tag-chip">Qt</span>
+                    <span class="tag-chip">SQL</span>
+                    <span class="tag-chip">scikit-learn</span>
+                </div>
+            </div>
+            <div>
+                <p style="font-size:14px;color:var(--fg);line-height:1.7">
+                    <strong style="color:var(--accent)">Focus:</strong> Worked in small student teams using Git for version control, with end-to-end ML pipelines covering feature engineering, cross-validation, and evaluation.
+                </p>
+            </div>
         </div>
     </div>
 </section>
 
-<section id="contact" class="contact">
+<section class="block" id="stack">
     <div class="container">
-        <h2>Let's talk.</h2>
-        <p>I'm actively looking for internships and junior engineering roles. The fastest way to reach me is email.</p>
-        <div class="cta-row">
-            <a href="mailto:sameerhassanq3@gmail.com" class="btn btn-primary">sameerhassanq3@gmail.com</a>
-            <a href="https://github.com/sameer-hassan01" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
-            <a href="Sameer_Hassan_CV.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
+        <div class="section-head reveal">
+            <span class="section-num">/ 03</span>
+            <span class="section-label">Stack</span>
+        </div>
+        <h2 class="section-title reveal">
+            Tools I <span class="serif">reach for.</span>
+        </h2>
+
+        <div class="tech-grid">
+            <div class="tech-card reveal"><div class="label">Mobile</div><div class="items">Flutter, Dart, Riverpod, GoRouter</div></div>
+            <div class="tech-card reveal"><div class="label">Backend</div><div class="items">Node.js, Express, REST</div></div>
+            <div class="tech-card reveal"><div class="label">Database</div><div class="items">PostgreSQL, SQL, raw pg</div></div>
+            <div class="tech-card reveal"><div class="label">Frontend</div><div class="items">React, Vite, Tailwind, HTML/CSS/JS</div></div>
+            <div class="tech-card reveal"><div class="label">Languages</div><div class="items">C++, Python, JavaScript, Dart</div></div>
+            <div class="tech-card reveal"><div class="label">Cloud</div><div class="items">Firebase, AWS, Render, Vercel</div></div>
+            <div class="tech-card reveal"><div class="label">Data / ML</div><div class="items">pandas, NumPy, scikit-learn</div></div>
+            <div class="tech-card reveal"><div class="label">Tools</div><div class="items">Git, Figma, Qt, Linux</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="process">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-num">/ 04</span>
+            <span class="section-label">Process</span>
+        </div>
+        <h2 class="section-title reveal">
+            How I <span class="serif">build.</span>
+        </h2>
+        <p class="section-sub reveal">A snapshot of how Hisaab was made &mdash; same pattern I follow for any product.</p>
+
+        <div class="process">
+            <div class="step reveal">
+                <div class="snum">01</div>
+                <div>
+                    <h4>Scope &amp; sketch</h4>
+                    <p>Decide what the product actually is and what it isn't. For Hisaab: free, offline-first, Pakistan-specific. No paid APIs.</p>
+                </div>
+            </div>
+            <div class="step reveal">
+                <div class="snum">02</div>
+                <div>
+                    <h4>Schema first</h4>
+                    <p>Design the Postgres schema before any code. Users, receipts, expenses, budgets, products, rewards. Get the data model right and everything else follows.</p>
+                </div>
+            </div>
+            <div class="step reveal">
+                <div class="snum">03</div>
+                <div>
+                    <h4>Backend, then mobile</h4>
+                    <p>Build the Express API with auth, validation, and rate-limiting in place from day one. Add tests with Jest + Supertest. Then build the Flutter app against a known-good API.</p>
+                </div>
+            </div>
+            <div class="step reveal">
+                <div class="snum">04</div>
+                <div>
+                    <h4>Offline-first</h4>
+                    <p>Hive cache + background sync queue so users keep working without internet &mdash; critical for an app expecting flaky connections.</p>
+                </div>
+            </div>
+            <div class="step reveal">
+                <div class="snum">05</div>
+                <div>
+                    <h4>Ship on free tiers</h4>
+                    <p>Render for the API, Neon for Postgres, Cloudinary for images, Vercel for the admin panel, Firebase for auth and push. Zero monthly cost.</p>
+                </div>
+            </div>
+            <div class="step reveal">
+                <div class="snum">06</div>
+                <div>
+                    <h4>Iterate in the open</h4>
+                    <p>Push to GitHub on every meaningful change. Document the deployment so anyone can run it locally. Keep the README honest.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-num">/ 05</span>
+            <span class="section-label">Contact</span>
+        </div>
+        <h2 class="reveal">
+            Let's <span class="serif">talk.</span>
+        </h2>
+        <p class="section-sub reveal" style="max-width:560px">
+            I'm actively looking for internships and junior engineering roles &mdash; Islamabad, remote-friendly, or hybrid. Fastest way to reach me is email.
+        </p>
+
+        <div class="lines reveal">
+            <a href="mailto:sameerhassanq3@gmail.com"><span>sameerhassanq3@gmail.com</span><span class="arrow">email →</span></a>
+            <a href="https://github.com/sameer-hassan01" target="_blank" rel="noopener"><span>github.com/sameer-hassan01</span><span class="arrow">github →</span></a>
+            <a href="Sameer_Hassan_CV.pdf" target="_blank"><span>Download CV (PDF)</span><span class="arrow">pdf ↗</span></a>
         </div>
     </div>
 </section>
 
 <footer>
     <div class="container">
-        &copy; 2026 Sameer Hassan &middot; Built with HTML/CSS, deployed on GitHub Pages
+        <span>© 2026 Sameer Hassan</span>
+        <span>Built with HTML/CSS · Deployed on GitHub Pages</span>
     </div>
 </footer>
+
+<script>
+// Custom cursor
+const cursor = document.querySelector('.cursor');
+let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+function animateCursor() {
+    cursorX += (mouseX - cursorX) * 0.18;
+    cursorY += (mouseY - cursorY) * 0.18;
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, .btn, .phone, .tech-card, .project').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+// Nav scrolled state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Scroll reveal via IntersectionObserver
+const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>
