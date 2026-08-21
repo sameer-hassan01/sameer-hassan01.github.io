@@ -594,6 +594,29 @@ h2.section-title .accent { color: var(--accent); }
     overflow: hidden;
     box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
+.reel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+.reel video {
+    width: 100%;
+    max-width: 320px;
+    display: block;
+    border-radius: 20px;
+    border: 1px solid var(--border-strong);
+    background: #000;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+}
+.reel-cap {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--fg-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 .phone-frame img,
 .phone-frame video { width: 100%; display: block; border-radius: 18px; background: #000; }
 .phone .caption {
@@ -963,8 +986,11 @@ footer a:hover { color: var(--accent); }
                         <h4>Inside the app</h4>
                         <span class="hint">— scroll →</span>
                     </div>
+                    <div class="reel">
+                        <video src="qeemat-final.mp4" poster="qeemat-final-poster.jpg" controls muted loop playsinline preload="none"></video>
+                        <span class="reel-cap">Splash &rarr; onboarding &rarr; sign-in &rarr; dashboard</span>
+                    </div>
                     <div class="phones">
-                        <div class="phone"><div class="phone-frame"><video src="qeemat-walkthrough.mp4" poster="qeemat-walkthrough-poster.jpg" controls muted loop playsinline preload="none"></video></div><div class="caption">14s walkthrough</div></div>
                         <div class="phone"><div class="phone-frame"><img src="qeemat-shots/01-onboarding-scan.png" alt="Qeemat onboarding screen: scan every receipt" loading="lazy"></div><div class="caption">Onboarding</div></div>
                         <div class="phone"><div class="phone-frame"><img src="qeemat-shots/02-onboarding-insights.png" alt="Onboarding screen: see where money goes" loading="lazy"></div><div class="caption">Insights</div></div>
                         <div class="phone"><div class="phone-frame"><img src="qeemat-shots/03-capture-consent.png" alt="Automatic capture consent screen listing the on-device promises" loading="lazy"></div><div class="caption">Capture consent</div></div>
