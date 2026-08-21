@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sameer Hassan — Software Engineer</title>
-<meta name="description" content="Sameer Hassan — software engineer building full-stack mobile and web products. AI/ML engineer intern at Nerd Flow, and creator of Hisaab, a Pakistan-focused personal finance app.">
+<meta name="description" content="Sameer Hassan — software engineer building full-stack mobile and web products. AI/ML engineer intern at Nerd Flow, and creator of Qeemat, a Pakistan-focused personal finance app.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -530,6 +530,13 @@ h2.section-title .accent { color: var(--accent); }
 .project .links a:hover { border-bottom-color: var(--accent); }
 .project .links .arrow { transition: transform 0.2s; display: inline-block; }
 .project .links a:hover .arrow { transform: translate(2px, -2px); }
+.project .links .repo-note {
+    color: var(--fg-muted);
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 0;
+    letter-spacing: 0.02em;
+}
 
 /* PHONE SHOWCASE */
 .showcase {
@@ -801,7 +808,7 @@ footer a:hover { color: var(--accent); }
             products <span class="accent">end-to-end.</span>
         </h1>
         <p class="lead reveal reveal-2">
-            BSCS student at Bahria University, Islamabad, and AI/ML engineer intern at Nerd Flow, where I built LLM-powered hiring features &mdash; r&eacute;sum&eacute; parsing, candidate screening, AI-led first-round interviews &mdash; for an HR platform. I ship mobile, backend, and web &mdash; from database schema to deployment. Also the solo builder behind Hisaab, a personal-finance app for Pakistan.
+            BSCS student at Bahria University, Islamabad, and AI/ML engineer intern at Nerd Flow, where I built LLM-powered hiring features &mdash; r&eacute;sum&eacute; parsing, candidate screening, AI-led first-round interviews &mdash; for an HR platform. I ship mobile, backend, and web &mdash; from database schema to deployment. Also the solo builder behind Qeemat, a personal-finance app for Pakistan that captures your spending straight from bank alerts.
         </p>
         <div class="cta-row reveal reveal-3">
             <a href="#work" class="btn primary">View my work <span class="arrow">→</span></a>
@@ -852,7 +859,7 @@ footer a:hover { color: var(--accent); }
                 I'm a third-year BS Computer Science student focused on <strong>full-stack development</strong> and machine learning. I learn fastest by building &mdash; so most of my time goes into shipping real apps from scratch.
             </p>
             <p class="reveal reveal-1">
-                I spent summer 2026 as an <strong>AI/ML engineer intern at Nerd Flow</strong>, building the AI hiring stack for Preplify &mdash; LLM r&eacute;sum&eacute; parsing, per-criterion candidate scoring, and AI-conducted first-round interviews. Outside that, I built <strong>Hisaab</strong>, a Pakistan-focused personal-finance app, solo across Flutter, Node, Postgres, and React, and earlier shipped the FoodBook MVP with another developer.
+                I spent summer 2026 as an <strong>AI/ML engineer intern at Nerd Flow</strong>, building the AI hiring stack for Preplify &mdash; LLM r&eacute;sum&eacute; parsing, per-criterion candidate scoring, and AI-conducted first-round interviews. Outside that, I built <strong>Qeemat</strong> (formerly Hisaab), a Pakistan-focused personal-finance app, solo across Flutter, Node, Postgres, and React, and earlier shipped the FoodBook MVP with another developer.
             </p>
         </div>
 
@@ -867,11 +874,11 @@ footer a:hover { color: var(--accent); }
             </div>
             <div class="stat reveal reveal-2">
                 <div class="num" data-target="3">0</div>
-                <div class="label">Codebases in Hisaab</div>
+                <div class="label">Codebases in Qeemat</div>
             </div>
             <div class="stat reveal reveal-3">
                 <div class="num">0<span class="small">PKR</span></div>
-                <div class="label">Hisaab monthly cost</div>
+                <div class="label">Qeemat monthly cost</div>
             </div>
         </div>
     </div>
@@ -923,24 +930,31 @@ footer a:hover { color: var(--accent); }
 
             <article class="project reveal">
                 <div class="project-head">
-                    <h3>Hisaab <span class="accent">/ Qeemat</span></h3>
+                    <h3>Qeemat <span class="accent">(formerly Hisaab)</span></h3>
                     <span class="meta">Solo · 2026</span>
                 </div>
                 <p>
-                    A free, offline-first personal finance and receipt manager built for Pakistani users. Combines <strong>on-device OCR</strong> receipt scanning, expense and income tracking, smart insights, budgets, subscriptions, grocery price comparison, and a rewards system &mdash; across a Flutter mobile app, Node/Postgres API, and React admin panel. Deployed entirely on free-tier infrastructure with zero monthly cost.
+                    A free, offline-first personal finance and receipt manager built for Pakistani users &mdash; three codebases written solo: a Flutter mobile app, a Node/Postgres REST API, and a React admin panel. On-device OCR receipt scanning, expense and income tracking, budgets, subscriptions, grocery price comparison, and rewards, running on free-tier infrastructure at <strong>zero monthly cost</strong>.
+                </p>
+                <p>
+                    The version that matters is the one that stopped asking people to type anything. <strong>Qeemat reads bank and wallet alerts</strong> through an Android notification listener and parses them into transactions <strong>entirely on-device</strong> &mdash; message text never leaves the phone. The patterns are deliberately loose, because Pakistani banks change their wording without notice, and anything the parser isn't confident about is queued for a one-tap confirmation instead of quietly landing in the ledger.
+                </p>
+                <p>
+                    Around that sits the part a finance app can't skip: a <strong>biometric + PIN app lock</strong> with attempt lockout, screenshot blocking, an encrypted local cache keyed to the Android Keystore, 15-minute access tokens with rotating refresh tokens and replay detection, and account deletion that really cascades. Multi-account balances, transfers that are never counted as spending, <em>udhaar</em> tracking, household members, and monthly reports sit on versioned SQL migrations, covered by <strong>80+ tests</strong> running in CI against a real Postgres. Offline writes queue in an outbox and replay in order, idempotently &mdash; verified in airplane mode.
                 </p>
                 <div class="tags">
                     <span class="tag-chip">Flutter</span>
+                    <span class="tag-chip">Kotlin</span>
                     <span class="tag-chip">Node.js</span>
                     <span class="tag-chip">Express</span>
                     <span class="tag-chip">PostgreSQL</span>
                     <span class="tag-chip">React</span>
                     <span class="tag-chip">Firebase</span>
                     <span class="tag-chip">ML Kit OCR</span>
-                    <span class="tag-chip">Cloudinary</span>
+                    <span class="tag-chip">GitHub Actions</span>
                 </div>
                 <div class="links">
-                    <a href="https://github.com/sameer-hassan01/QEEMAT" target="_blank" rel="noopener">View on GitHub <span class="arrow">↗</span></a>
+                    <span class="repo-note">Private repo &mdash; code walkthrough available on request</span>
                 </div>
 
                 <div class="showcase">
@@ -949,7 +963,7 @@ footer a:hover { color: var(--accent); }
                         <span class="hint">— scroll →</span>
                     </div>
                     <div class="phones">
-                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/01-dashboard.png" alt="Hisaab dashboard"></div><div class="caption">Dashboard</div></div>
+                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/01-dashboard.png" alt="Qeemat dashboard"></div><div class="caption">Dashboard</div></div>
                         <div class="phone"><div class="phone-frame"><img src="qeemat-shots/02-add-income.png" alt="Add income flow"></div><div class="caption">Add income</div></div>
                         <div class="phone"><div class="phone-frame"><img src="qeemat-shots/03-receipt-scan-ocr.png" alt="Receipt scanner with OCR"></div><div class="caption">OCR scan</div></div>
                         <div class="phone"><div class="phone-frame"><img src="qeemat-shots/04-detected-items.png" alt="Detected items from OCR"></div><div class="caption">Parsed items</div></div>
@@ -1096,10 +1110,10 @@ footer a:hover { color: var(--accent); }
             <span class="section-label">Process</span>
         </div>
         <h2 class="section-title reveal">How I <span class="accent">build.</span></h2>
-        <p class="section-sub reveal">A snapshot of how Hisaab was made &mdash; the same pattern I follow for any product.</p>
+        <p class="section-sub reveal">A snapshot of how Qeemat was made &mdash; the same pattern I follow for any product.</p>
 
         <div class="process">
-            <div class="step reveal"><div class="snum">01.</div><div><h4>Scope &amp; sketch</h4><p>Decide what the product actually is and what it isn't. For Hisaab: free, offline-first, Pakistan-specific. No paid APIs.</p></div></div>
+            <div class="step reveal"><div class="snum">01.</div><div><h4>Scope &amp; sketch</h4><p>Decide what the product actually is and what it isn't. For Qeemat: free, offline-first, Pakistan-specific. No paid APIs.</p></div></div>
             <div class="step reveal"><div class="snum">02.</div><div><h4>Schema first</h4><p>Design the Postgres schema before any code. Get the data model right and everything else follows.</p></div></div>
             <div class="step reveal"><div class="snum">03.</div><div><h4>Backend, then mobile</h4><p>Build the Express API with auth, validation, and rate-limiting in place from day one. Add tests. Then build the Flutter app against a known-good API.</p></div></div>
             <div class="step reveal"><div class="snum">04.</div><div><h4>Offline-first</h4><p>Hive cache + background sync queue so users keep working without internet &mdash; critical for an app expecting flaky connections.</p></div></div>
@@ -1123,7 +1137,7 @@ footer a:hover { color: var(--accent); }
         <div class="lines reveal">
             <a href="mailto:sameerhassanq3@gmail.com"><span>sameerhassanq3@gmail.com</span><span class="arrow">email →</span></a>
             <a href="https://github.com/sameer-hassan01" target="_blank" rel="noopener"><span>github.com/sameer-hassan01</span><span class="arrow">github →</span></a>
-            <a href="https://github.com/sameer-hassan01/QEEMAT" target="_blank" rel="noopener"><span>github.com/sameer-hassan01/QEEMAT</span><span class="arrow">project →</span></a>
+            <a href="https://www.linkedin.com/in/sameer-hassan-a9420a262" target="_blank" rel="noopener"><span>linkedin.com/in/sameer-hassan</span><span class="arrow">linkedin →</span></a>
             <a href="Sameer_Hassan_CV.pdf" target="_blank"><span>Download CV (PDF)</span><span class="arrow">pdf ↗</span></a>
         </div>
     </div>
