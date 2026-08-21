@@ -594,7 +594,8 @@ h2.section-title .accent { color: var(--accent); }
     overflow: hidden;
     box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
-.phone-frame img { width: 100%; display: block; border-radius: 18px; }
+.phone-frame img,
+.phone-frame video { width: 100%; display: block; border-radius: 18px; background: #000; }
 .phone .caption {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -963,11 +964,13 @@ footer a:hover { color: var(--accent); }
                         <span class="hint">— scroll →</span>
                     </div>
                     <div class="phones">
-                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/01-dashboard.png" alt="Qeemat dashboard"></div><div class="caption">Dashboard</div></div>
-                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/02-add-income.png" alt="Add income flow"></div><div class="caption">Add income</div></div>
-                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/03-receipt-scan-ocr.png" alt="Receipt scanner with OCR"></div><div class="caption">OCR scan</div></div>
-                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/04-detected-items.png" alt="Detected items from OCR"></div><div class="caption">Parsed items</div></div>
-                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/05-save-receipt.png" alt="Save receipt"></div><div class="caption">Save</div></div>
+                        <div class="phone"><div class="phone-frame"><video src="qeemat-walkthrough.mp4" poster="qeemat-walkthrough-poster.jpg" controls muted loop playsinline preload="none"></video></div><div class="caption">30s walkthrough</div></div>
+                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/01-onboarding-scan.png" alt="Qeemat onboarding screen: scan every receipt" loading="lazy"></div><div class="caption">Onboarding</div></div>
+                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/02-onboarding-insights.png" alt="Onboarding screen: see where money goes" loading="lazy"></div><div class="caption">Insights</div></div>
+                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/03-capture-consent.png" alt="Automatic capture consent screen listing the on-device promises" loading="lazy"></div><div class="caption">Capture consent</div></div>
+                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/04-bank-alert.png" alt="A bank alert followed by Qeemat detecting the transaction" loading="lazy"></div><div class="caption">Bank alert</div></div>
+                        <div class="phone"><div class="phone-frame"><img src="qeemat-shots/05-dashboard.png" alt="Dashboard showing the captured transaction" loading="lazy"></div><div class="caption">It landed</div></div>
+                    </div>
                     </div>
                 </div>
             </article>
@@ -1137,7 +1140,7 @@ footer a:hover { color: var(--accent); }
         <div class="lines reveal">
             <a href="mailto:sameerhassanq3@gmail.com"><span>sameerhassanq3@gmail.com</span><span class="arrow">email →</span></a>
             <a href="https://github.com/sameer-hassan01" target="_blank" rel="noopener"><span>github.com/sameer-hassan01</span><span class="arrow">github →</span></a>
-            <a href="https://www.linkedin.com/in/sameer-hassan-a9420a262" target="_blank" rel="noopener"><span>linkedin.com/in/sameer-hassan</span><span class="arrow">linkedin →</span></a>
+            <a href="https://www.linkedin.com/in/sameer-hassan-isb" target="_blank" rel="noopener"><span>linkedin.com/in/sameer-hassan-isb</span><span class="arrow">linkedin →</span></a>
             <a href="Sameer_Hassan_CV.pdf" target="_blank"><span>Download CV (PDF)</span><span class="arrow">pdf ↗</span></a>
         </div>
     </div>
